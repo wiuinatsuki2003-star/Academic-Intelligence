@@ -12,4 +12,5 @@ cache/
 .DS_Store
 *.log
 .idea/
-.vscode/
+.vscode/*
+!.vscode/launch.json

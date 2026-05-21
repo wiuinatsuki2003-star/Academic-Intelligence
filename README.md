@@ -2,23 +2,34 @@
 
 欧洲智库每周学术追踪。给定时间窗口 (如 `2026-05-13` → `2026-05-20`)，抓取 56 家欧洲智库当周产出的标题、作者、日期、链接、原文，再用 DeepSeek V4 Pro 思考模式生成 200-400 字中文摘要，渲染成「国家 → 机构 → 篇目」的折叠静态 HTML 周报。
 
-## 快速开始
+## 快速开始 (IDLE / VSCode 一键运行)
+
+最简单的路：
+
+1. 用 IDLE 或 VSCode 打开 `run.py`
+2. 顶部「配置区」把 `DEEPSEEK_API_KEY` 填上（去 https://platform.deepseek.com 拿）
+3. 按 **F5** 跑 —— 第一次会自动装依赖（1-2 分钟），跑完浏览器自动弹周报
+
+不想改代码也行：留空 `DEEPSEEK_API_KEY`、把 `SKIP_SUMMARY = True`，先抓取+渲染看流水线通不通。
+
+### 自定义时间窗口
+
+`run.py` 顶部改 `DATE_FROM` / `DATE_TO`，例如：
+```python
+DATE_FROM = "2026-05-13"
+DATE_TO   = "2026-05-20"
+```
+留空就是过去 7 天。
+
+### 进阶：命令行
 
 ```bash
 pip install -r requirements.txt
-cp .env.example .env       # 填入 DEEPSEEK_API_KEY
+cp .env.example .env       # 填 DEEPSEEK_API_KEY
 python -m tracker --from 2026-05-13 --to 2026-05-20
-```
-
-输出在 `output/weekly-2026-05-13-to-2026-05-20.html`，浏览器打开即可。
-
-### 常用参数
-
-```bash
-python -m tracker --week 1            # 上 1 周, 默认即此
-python -m tracker --only swp,elcano   # 只跑指定源 (调试)
-python -m tracker --no-summary        # 抓取+渲染，不调 LLM (省钱测流水线)
-python -m tracker --from 2026-05-13 --to 2026-05-20 -v  # debug 日志
+python -m tracker --only swp,elcano       # 只跑指定源 (调试)
+python -m tracker --no-summary            # 不调 LLM
+python -m tracker --week 1 -v             # 过去 7 天, 详细日志
 ```
 
 ## 目录
