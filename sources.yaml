@@ -1,0 +1,553 @@
+# 欧洲智库源清单 (56 家, 抽自上传的 Excel)
+#
+# strategy 字段:
+#   rss        - 走 RSS/Atom (优先, 最快最稳)
+#   html_list  - 走列表页 + CSS 选择器
+#   skip       - 暂不抓 (待补适配器)
+#
+# 优先级 12 家给了候选 RSS 地址，但是在被锁出网的容器里无法实测，
+# 标了 verified: false。本地跑一次后可见到 404/403/解析失败就改回 skip 或换 html_list。
+#
+# 字段说明:
+#   feeds         : list[str]，可多个 RSS 地址
+#   list_url      : html_list 用的列表页 URL
+#   item_selector : CSS 选择器, 每条产出对应一个节点
+#   title/link/date_selector : 相对于 item 节点的子选择器
+#   date_attr     : 日期来自属性 (如 <time datetime="…">) 时填属性名
+#   base_url      : 相对链接拼接基址 (默认用 list_url)
+
+sources:
+
+# ────────────────────────────────────────────────────────────────
+# 英国 (8)
+# ────────────────────────────────────────────────────────────────
+- key: chatham_house
+  name_en: Chatham House
+  name_zh: 皇家国际事务研究所
+  country: 英国
+  country_code: UK
+  language: en
+  url: https://www.chathamhouse.org/
+  strategy: rss
+  feeds:
+    - https://www.chathamhouse.org/rss/all
+  verified: false
+
+- key: rusi
+  name_en: Royal United Services Institute
+  name_zh: 皇家联合服务研究所
+  country: 英国
+  country_code: UK
+  language: en
+  url: https://www.rusi.org/
+  strategy: rss
+  feeds:
+    - https://www.rusi.org/explore-our-research.rss
+  verified: false
+
+- key: iiss
+  name_en: International Institute for Strategic Studies
+  name_zh: 英国国际战略研究所
+  country: 英国
+  country_code: UK
+  language: en
+  url: https://www.iiss.org/
+  strategy: skip
+  note: 站点多用 JS 渲染, 待写 html_list 适配器或 Playwright 兜底
+
+- key: odi
+  name_en: Overseas Development Institute
+  name_zh: 英国海外发展研究所
+  country: 英国
+  country_code: UK
+  language: en
+  url: https://odi.org/en/
+  strategy: skip
+  note: TODO 适配器
+
+- key: lse_ideas
+  name_en: LSE IDEAS
+  name_zh: 伦敦政治经济学院外交政策研究中心
+  country: 英国
+  country_code: UK
+  language: en
+  url: https://www.lse.ac.uk/IDEAS
+  strategy: skip
+
+- key: ids
+  name_en: Institute of Development Studies
+  name_zh: 英国国际发展研究院
+  country: 英国
+  country_code: UK
+  language: en
+  url: https://www.ids.ac.uk
+  strategy: skip
+
+- key: cepr
+  name_en: Centre for Economic Policy Research
+  name_zh: 经济政策研究中心
+  country: 英国
+  country_code: UK
+  language: en
+  url: https://cepr.org/
+  strategy: skip
+
+- key: iied
+  name_en: International Institute for Environment and Development
+  name_zh: 国际环境与发展研究所
+  country: 英国
+  country_code: UK
+  language: en
+  url: https://www.iied.org/
+  strategy: skip
+
+# ────────────────────────────────────────────────────────────────
+# 法国 (10)
+# ────────────────────────────────────────────────────────────────
+- key: fondapol
+  name_en: Fondation pour l'Innovation Politique
+  name_zh: 政治创新基金会
+  country: 法国
+  country_code: FR
+  language: fr
+  url: https://www.fondapol.org/en/
+  strategy: skip
+
+- key: iris
+  name_en: Institut de Relations Internationales et Stratégiques
+  name_zh: 国际与战略关系研究所
+  country: 法国
+  country_code: FR
+  language: fr
+  url: https://www.iris-france.org/
+  strategy: rss
+  feeds:
+    - https://www.iris-france.org/feed/
+  verified: false
+
+- key: jacques_delors
+  name_en: Jacques Delors Institute
+  name_zh: 雅克·德洛尔研究所
+  country: 法国
+  country_code: FR
+  language: fr
+  url: https://institutdelors.eu/en/
+  strategy: skip
+
+- key: euiss
+  name_en: European Union Institute for Security Studies
+  name_zh: 欧盟安全研究所
+  country: 法国
+  country_code: FR
+  language: en
+  url: https://www.iss.europa.eu/
+  strategy: skip
+
+- key: cepii
+  name_en: Centre d'Etudes Prospectives et d'Informations Internationales
+  name_zh: 前瞻性研究和国际信息中心
+  country: 法国
+  country_code: FR
+  language: fr
+  url: https://www.cepii.fr/cepii/en/cepii/cepii.asp
+  strategy: skip
+
+- key: iddri
+  name_en: Institute for Sustainable Development and International Relations
+  name_zh: 可持续发展和国际关系研究所
+  country: 法国
+  country_code: FR
+  language: fr
+  url: https://www.iddri.org/
+  strategy: skip
+
+- key: ferdi
+  name_en: Foundation for Studies and Research on International Development
+  name_zh: 国际发展研究基金会
+  country: 法国
+  country_code: FR
+  language: fr
+  url: https://ferdi.fr/
+  strategy: skip
+
+- key: frs
+  name_en: Fondation pour la Recherche Stratégique
+  name_zh: 战略研究基金会
+  country: 法国
+  country_code: FR
+  language: fr
+  url: https://www.frstrategie.org/
+  strategy: skip
+
+- key: ceri
+  name_en: Centre de Recherches Internationales (Sciences Po)
+  name_zh: 国际研究中心
+  country: 法国
+  country_code: FR
+  language: fr
+  url: https://www.sciencespo.fr/ceri/en.html
+  strategy: skip
+
+- key: institut_montaigne
+  name_en: Institut Montaigne
+  name_zh: 蒙田研究所
+  country: 法国
+  country_code: FR
+  language: fr
+  url: https://www.institutmontaigne.org/en
+  strategy: rss
+  feeds:
+    - https://www.institutmontaigne.org/rss.xml
+  verified: false
+
+# ────────────────────────────────────────────────────────────────
+# 德国 (12)
+# ────────────────────────────────────────────────────────────────
+- key: kas
+  name_en: Konrad-Adenauer-Stiftung
+  name_zh: 康拉德·阿登纳基金会
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://www.kas.de/
+  strategy: skip
+
+- key: oeko
+  name_en: Öko-Institut
+  name_zh: 生态研究所
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://www.oeko.de/
+  strategy: skip
+
+- key: bertelsmann
+  name_en: Bertelsmann Stiftung
+  name_zh: 贝塔斯曼基金会
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://www.bertelsmann-stiftung.de
+  strategy: skip
+
+- key: die_gdi
+  name_en: Deutsches Institut für Entwicklungspolitik (IDOS)
+  name_zh: 德国发展研究所
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://www.die-gdi.de/
+  strategy: skip
+
+- key: ifo
+  name_en: ifo Institut
+  name_zh: 慕尼黑大学莱布尼茨伊福经济研究所
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://www.ifo.de/
+  strategy: rss
+  feeds:
+    - https://www.ifo.de/rss/news.xml
+  verified: false
+
+- key: swp
+  name_en: Stiftung Wissenschaft und Politik (SWP)
+  name_zh: 科学与政治基金会 / 德国国际政治与安全研究所
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://www.swp-berlin.org/
+  strategy: rss
+  feeds:
+    - https://www.swp-berlin.org/publikationen.rss
+  verified: false
+
+- key: ifw_kiel
+  name_en: Kiel Institute for the World Economy
+  name_zh: 基尔大学世界经济研究所
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://www.ifw-kiel.de/
+  strategy: skip
+
+- key: dgap
+  name_en: Deutsche Gesellschaft für Auswärtige Politik (DGAP)
+  name_zh: 德国外交政策学会
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://dgap.org/
+  strategy: rss
+  feeds:
+    - https://dgap.org/en/rss.xml
+  verified: false
+
+- key: prif
+  name_en: Peace Research Institute Frankfurt (PRIF)
+  name_zh: 黑森州和平与冲突研究所
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://www.hsfk.de/
+  strategy: skip
+
+- key: pik
+  name_en: Potsdam Institute for Climate Impact Research
+  name_zh: 波茨坦气候影响研究所
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://www.pik-potsdam.de
+  strategy: skip
+
+- key: naumann
+  name_en: Friedrich-Naumann-Stiftung für die Freiheit
+  name_zh: 弗里德里希·瑙曼自由基金会
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://www.freiheit.org
+  strategy: skip
+
+- key: ifsh
+  name_en: Institut für Friedensforschung und Sicherheitspolitik (IFSH)
+  name_zh: 和平研究与安全研究所
+  country: 德国
+  country_code: DE
+  language: de
+  url: https://ifsh.de/
+  strategy: skip
+
+# ────────────────────────────────────────────────────────────────
+# 西班牙 (5)
+# ────────────────────────────────────────────────────────────────
+- key: elcano
+  name_en: Real Instituto Elcano
+  name_zh: 埃尔卡诺皇家学会
+  country: 西班牙
+  country_code: ES
+  language: es
+  url: https://www.realinstitutoelcano.org/
+  strategy: rss
+  feeds:
+    - https://www.realinstitutoelcano.org/en/feed/
+  verified: false
+
+- key: cidob
+  name_en: CIDOB - Barcelona Centre for International Affairs
+  name_zh: 巴塞罗那国际事务中心
+  country: 西班牙
+  country_code: ES
+  language: es
+  url: https://www.cidob.org/en
+  strategy: skip
+
+- key: ieee_es
+  name_en: Instituto Español de Estudios Estratégicos (IEEE)
+  name_zh: 西班牙战略研究所
+  country: 西班牙
+  country_code: ES
+  language: es
+  url: https://ieeespain.org/
+  strategy: skip
+
+- key: catedra_china
+  name_en: Cátedra China
+  name_zh: 知华讲堂
+  country: 西班牙
+  country_code: ES
+  language: es
+  url: https://www.catedrachina.com/
+  strategy: skip
+
+- key: fedea
+  name_en: Fundación de Estudios de Economía Aplicada (FEDEA)
+  name_zh: 西班牙应用经济研究基金会
+  country: 西班牙
+  country_code: ES
+  language: es
+  url: https://fedea.net/
+  strategy: skip
+
+# ────────────────────────────────────────────────────────────────
+# 瑞士 (2)
+# ────────────────────────────────────────────────────────────────
+- key: swisspeace
+  name_en: swisspeace
+  name_zh: 瑞士和平基金会
+  country: 瑞士
+  country_code: CH
+  language: en
+  url: https://www.swisspeace.ch
+  strategy: skip
+
+- key: gcsp
+  name_en: Geneva Centre for Security Policy (GCSP)
+  name_zh: 日内瓦安全政策中心
+  country: 瑞士
+  country_code: CH
+  language: en
+  url: https://www.gcsp.ch
+  strategy: skip
+
+# ────────────────────────────────────────────────────────────────
+# 奥地利 (1)
+# ────────────────────────────────────────────────────────────────
+- key: agenda_austria
+  name_en: Agenda Austria
+  name_zh: 奥地利议程
+  country: 奥地利
+  country_code: AT
+  language: de
+  url: https://www.agenda-austria.at/
+  strategy: skip
+
+# ────────────────────────────────────────────────────────────────
+# 爱尔兰 (1)
+# ────────────────────────────────────────────────────────────────
+- key: iiea
+  name_en: Institute of International & European Affairs (IIEA)
+  name_zh: 爱尔兰国际与欧洲事务研究所
+  country: 爱尔兰
+  country_code: IE
+  language: en
+  url: https://www.iiea.com/
+  strategy: skip
+
+# ────────────────────────────────────────────────────────────────
+# 俄罗斯 (16, Excel 中有重复条目, 这里去重后 14)
+# ────────────────────────────────────────────────────────────────
+- key: imemo
+  name_en: IMEMO (Institute of World Economy and International Relations, RAS)
+  name_zh: 俄罗斯科学院世界经济和国际关系研究所
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://www.imemo.ru/
+  strategy: skip
+  note: 反爬较多, 可能需 Playwright
+
+- key: riac
+  name_en: Russian International Affairs Council (RIAC)
+  name_zh: 俄罗斯国际事务委员会
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://russiancouncil.ru/en/
+  strategy: rss
+  feeds:
+    - https://russiancouncil.ru/rss/all-analytics/?lang=en
+  verified: false
+
+- key: cefir
+  name_en: CEFIR (NES Centre for Economic and Financial Research)
+  name_zh: 新经济学院经济与金融研究与发展中心
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://www.nes.ru/cefir-about/
+  strategy: skip
+
+- key: iskran
+  name_en: ISKRAN (Institute for US and Canadian Studies, RAS)
+  name_zh: 俄罗斯科学院美国与加拿大研究所
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://iskran.ru/
+  strategy: skip
+
+- key: ras
+  name_en: Russian Academy of Sciences
+  name_zh: 俄罗斯科学院
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://new.ras.ru/en/
+  strategy: skip
+
+- key: valdai
+  name_en: Valdai Discussion Club
+  name_zh: 瓦尔代俱乐部
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://valdaiclub.com/
+  strategy: rss
+  feeds:
+    - https://valdaiclub.com/rss/news/
+  verified: false
+
+- key: iep
+  name_en: Gaidar Institute for Economic Policy
+  name_zh: 叶戈尔·盖达尔经济政策研究所
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://www.iep.ru/en/
+  strategy: skip
+
+- key: tsu_eurasian
+  name_en: Center for Eurasian Studies (TSU)
+  name_zh: 欧亚研究中心
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://eurasian-studies.tsu.ru/en/
+  strategy: skip
+
+- key: riss
+  name_en: Russian Institute for Strategic Studies (RISS)
+  name_zh: 俄罗斯战略研究院
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://riss.ru/
+  strategy: skip
+
+- key: pir_center
+  name_en: PIR Center
+  name_zh: 皮尔中心
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://pircenter.org/en/
+  strategy: skip
+
+- key: hse_cceis
+  name_en: HSE Centre for Comprehensive European and International Studies
+  name_zh: 高等经济学院综合欧洲与国际研究中心
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://cceis.hse.ru/en/
+  strategy: skip
+
+- key: roscongress
+  name_en: Roscongress Foundation
+  name_zh: 罗斯康国际基金会
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://roscongress.org/en/
+  strategy: skip
+
+- key: svop
+  name_en: Council on Foreign and Defense Policy (SVOP)
+  name_zh: 对外与国防政策委员会
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://svop.ru/
+  strategy: skip
+
+- key: iccaras
+  name_en: Institute of China and Contemporary Asia, RAS
+  name_zh: 俄罗斯科学院中国与现代亚洲研究所
+  country: 俄罗斯
+  country_code: RU
+  language: ru
+  url: https://www.iccaras.ru/
+  strategy: skip

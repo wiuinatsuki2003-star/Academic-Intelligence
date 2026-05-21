@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>欧洲智库周报 {{ since }} — {{ until }}</title>
+<style>
+  :root {
+    --bg: #fafaf7;
+    --fg: #222;
+    --muted: #777;
+    --accent: #2b5797;
+    --border: #ddd;
+    --card: #fff;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                       "Microsoft YaHei", sans-serif;
+         background: var(--bg); color: var(--fg); margin: 0;
+         line-height: 1.65; }
+  .container { max-width: 980px; margin: 0 auto; padding: 32px 24px 64px; }
+  h1 { margin: 0 0 4px; font-size: 24px; }
+  .subtitle { color: var(--muted); margin-bottom: 24px; font-size: 14px; }
+  .stats { background: var(--card); border: 1px solid var(--border);
+           border-radius: 6px; padding: 12px 16px; margin-bottom: 24px;
+           font-size: 14px; color: var(--muted); }
+  details { margin: 4px 0; }
+  details > summary { cursor: pointer; padding: 4px 0; }
+  details > summary::marker { color: var(--accent); }
+  details.country { border-top: 1px solid var(--border); padding-top: 8px;
+                    margin-top: 8px; }
+  details.country > summary { font-size: 18px; font-weight: 600; }
+  details.org { margin-left: 20px; }
+  details.org > summary { font-size: 15px; color: var(--accent); }
+  .count { color: var(--muted); font-weight: normal; font-size: 13px;
+           margin-left: 6px; }
+  .item { margin: 8px 0 8px 40px; padding: 10px 14px; background: var(--card);
+          border: 1px solid var(--border); border-radius: 5px; }
+  .item .title { font-weight: 600; font-size: 15px; }
+  .item .title-zh { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .item .meta { color: var(--muted); font-size: 12px; margin: 4px 0 8px; }
+  .item .meta a { color: var(--accent); text-decoration: none; }
+  .item .meta a:hover { text-decoration: underline; }
+  .item .summary { font-size: 14px; white-space: pre-wrap; }
+  .item .summary.empty { color: var(--muted); font-style: italic; }
+  .err { color: #b00; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>欧洲智库周报</h1>
+  <div class="subtitle">窗口：{{ since }} → {{ until }}</div>
+  <div class="stats">
+    {{ total }} 篇产出 · {{ total_orgs }} 个机构 · {{ countries|length }} 个国家
+  </div>
+
+  {% for country in countries %}
+  <details class="country" open>
+    <summary>{{ country.name }}<span class="count">{{ country.count }} 篇</span></summary>
+    {% for org in country.orgs %}
+    <details class="org">
+      <summary>{{ org.name }}<span class="count">{{ org.entries|length }} 篇</span></summary>
+      {% for item in org.entries %}
+      <div class="item">
+        <div class="title">{{ item.title }}</div>
+        {% if item.title_zh %}<div class="title-zh">{{ item.title_zh }}</div>{% endif %}
+        <div class="meta">
+          {% if item.pub_date %}{{ item.pub_date.isoformat() }}{% else %}—{% endif %}
+          {% if item.authors %} · {{ item.authors | join(", ") }}{% endif %}
+          · <a href="{{ item.url }}" target="_blank" rel="noopener">原文</a>
+          {% if item.body_path %} · <a href="../{{ item.body_path }}">本地原文</a>{% endif %}
+        </div>
+        {% if item.summary_zh %}
+        <div class="summary">{{ item.summary_zh }}</div>
+        {% elif item.error %}
+        <div class="summary empty err">[摘要失败: {{ item.error }}]</div>
+        {% else %}
+        <div class="summary empty">（未生成摘要）</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </details>
+    {% endfor %}
+  </details>
+  {% endfor %}
+
+  {% if not countries %}
+  <p style="color:var(--muted)">本周窗口无新产出，或所有源都未配置抓取策略。</p>
+  {% endif %}
+</div>
+</body>
+</html>
